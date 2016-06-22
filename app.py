@@ -68,5 +68,6 @@ def comment():
 def get_members():
     return str(User.query.all())
 
+
 if __name__ == '__main__':
     app.run(debug=True)
