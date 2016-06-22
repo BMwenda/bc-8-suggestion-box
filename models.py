@@ -3,6 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from wtforms import Form, StringField, PasswordField, validators
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
@@ -18,16 +19,16 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
-    pwd = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120), unique=True)
     comment = db.relationship('Comment', backref='user',
                               lazy='dynamic')
     suggestion = db.relationship('Suggestion', backref='user',
                                  lazy='dynamic')
 
-    def __init__(self, username, email, pwd, comment, suggestion):
+    def __init__(self, username, email, password, comment, suggestion):
         self.username = username
         self.email = email
-        self.pwd = pwd
+        self.password = password
         self.comment = comment
         self.suggetion = suggestion
 
@@ -55,4 +56,3 @@ class Comment(db.Model):
     def __init__(self, comment, commented_by):
         self.comment = comment
         self.commented_by = commented_by
-
