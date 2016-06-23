@@ -1,9 +1,9 @@
 {% from "_formhelpers.html" import render_field %}
-
-<form method=post action="/suggest">
+<form method='post'>
   <dl>
     {{ render_field(form.title) }}
     {{ render_field(form.description) }}
   </dl>
-  <p><input type=submit value=Suggest>
+  <p><input type=submit value=Post suggestion>
 </form>
+
