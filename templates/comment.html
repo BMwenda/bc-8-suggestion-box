@@ -1,8 +1,7 @@
 {% from "_formhelpers.html" import render_field %}
-
-<form method=post action="/comment">
+<form method=post>
   <dl>
     {{ render_field(form.comment) }}
   </dl>
-  <p><input type=submit value=Comment>
+  <p><input type=submit value=Post Comment>
 </form>
