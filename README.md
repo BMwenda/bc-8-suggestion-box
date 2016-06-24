@@ -1,5 +1,9 @@
 		Suggestion Box Web Application v1.0
-===================================================
+====================================================================
+		
+		Find the live app at https://bc-suggestion-box.herokuapp.com/
+
+=====================================================================
 Copyright (c) Andela-bc-8 2016
 
 Suggestion Box is a simple web based app to help you post suggestions to any topic of your choice. Sign up to comment on topics, posts suggestions. 
