@@ -1,8 +1,7 @@
-Find the live app at: 
+Suggestion Box v1.0.
 ====================================================================	
- 		https://bc-suggestion-box.herokuapp.com
+ Get live app at: https://bc-suggestion-box.herokuapp.com
 =====================================================================
-		Suggestion Box Web Application v1.0
 
 Copyright (c) Andela-bc-8 2016
 
