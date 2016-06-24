@@ -1,7 +1,6 @@
 Suggestion Box v1.0.
 ====================================================================	
- Get live app at: https://bc-suggestion-box.herokuapp.com
-=====================================================================
+Get live app at: https://bc-suggestion-box.herokuapp.com
 
 Copyright (c) Andela-bc-8 2016
 
