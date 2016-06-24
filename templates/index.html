@@ -1,9 +1,58 @@
-<!DOCTYPE HTML>
-<html lang="en-us">
-	<head>
-		<title>Home page</title>
-	</head>
-	<body>
-		Content to be posted on this page
-	</body>
-</html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Suggestion box</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+  
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  </head>
+  <body>
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Suggestion Box</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Suggestions</a></li>
+            <li><a href="#">Comments</a></li>
+            <li><a href="#">Login</a></li>
+          </ul>
+        </div>
+      </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+<div class="container-fluid">
+  {% for message in get_flashed_messages() %}
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert"> &times; </button>
+      {{ message }}
+    </div>
+    {% endfor %}
+{% endblock content %}
+
+
+  <div class="col-sm-9 col-md-10 main">
+  {% block page_content %}
+  {% endblock page_content %}
+  </div>
+  
+</div>
+</body>
+</html>
+
+
