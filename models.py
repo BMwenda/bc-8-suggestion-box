@@ -1,6 +1,7 @@
 """ Setting up the database """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.login import UserMixin, LoginManager
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,13 +14,15 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
-    password = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120))
 
     def encrypt_password(self, password_hash):
         self.password = generate_password_hash(password_hash)
@@ -27,13 +30,25 @@ class User(db.Model):
     def decrypt_password(self, password_hash):
         return check_password_hash(self.password, password_hash)
 
-    def __init__(self, username, email, password):
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return True
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def get_id(self):
+        return (self.id)
+
+    def __init__(self, username, email, password, is_active=True):
         self.username = username
         self.email = email
         self.password = password
 
     def __repr__(self):
-        return 'User {0}'.format(self.username)
+        return '<User %r>' % self.username
 
 
 class Suggestion(db.Model):
@@ -42,7 +57,7 @@ class Suggestion(db.Model):
     description = db.Column(db.String(140))
     posted_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     suggestion = db.relationship('User', backref=db.backref('user',
-                                 lazy='dynamic'))
+                                                            lazy='dynamic'))
     votes = db.Column(db.Integer)
     flags = db.Column(db.Integer)
 
@@ -58,8 +73,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(140))
     commented_by = db.Column(db.Integer, db.ForeignKey('user.id'))
-    comment = db.relationship('User', backref=db.backref('comment',
-                              lazy='dynamic'))
+    comm = db.relationship('User', backref=db.backref('comment',
+                                                      lazy='dynamic'))
 
     def __init__(self, comment):
         self.comment = comment
@@ -67,3 +82,5 @@ class Comment(db.Model):
 
 if __name__ == '__main__':
     manager.run()
+
+
