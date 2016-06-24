@@ -1,17 +1,14 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block title %} Register {% endblock %}
 
 {% block page_content %}
-<div class="col-sm-9 col-md-10 main">
-	<h1> Join US </h1>
-	<div class="jumbotron">
-		{{ wtf.quick_form(form)}}
-	</div>
-</div>
-{% endblock page_content %}
-
-
-
-
+{% from "_formhelpers.html" import render_field %}
+<form method='post'>
+  <dl>
+    {{ render_field(form.username) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.confirm) }}
+  </dl>
+  <p><input type=submit value=Post suggestion>
+</form>
+{% endblock %}
