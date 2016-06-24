@@ -1,7 +1,7 @@
-		Suggestion Box Web Application v1.0
 ====================================================================	
 Find the live app at https://bc-suggestion-box.herokuapp.com
 =====================================================================
+		Suggestion Box Web Application v1.0
 
 Copyright (c) Andela-bc-8 2016
 
