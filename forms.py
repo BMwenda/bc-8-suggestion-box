@@ -1,5 +1,4 @@
-from wtforms import StringField, PasswordField, validators, SubmitField
-from flask_wtf import Form
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, TextAreaField
 
 
 class RegistrationForm(Form):
@@ -15,19 +14,16 @@ class RegistrationForm(Form):
 
 class LoginForm(Form):
     username = StringField('Username', [validators.Length(min=4, max=25)])
-    password = PasswordField('Enter Password', [
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
+    password = PasswordField('Enter Password', [validators.DataRequired()])
     submit = SubmitField('Log In')
 
 
 class SuggestionForm(Form):
-    title = StringField('Title', [validators.Length(min=4, max=50)])
-    description = StringField(
+    title = StringField('Title', [validators.Length(min=3, max=50)])
+    description = TextAreaField(
         'Description', [validators.Length(min=6, max=140)])
     submit = SubmitField('Suggest')
 
 
 class CommentForm(Form):
-    comment = StringField('Comment', [validators.Length(min=4, max=140)])
+    comment = TextAreaField('Comment', [validators.Length(min=4, max=140)])
