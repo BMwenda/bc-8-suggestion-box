@@ -1,5 +1,6 @@
+Find the live app at: 
 ====================================================================	
-Find the live app at https://bc-suggestion-box.herokuapp.com
+ 		https://bc-suggestion-box.herokuapp.com
 =====================================================================
 		Suggestion Box Web Application v1.0
 
@@ -19,6 +20,7 @@ Installation Requirements
 ------------------------------
 
 Follow these instructions if you want to run the app on your local disk
+
 1. Download and install dependencies listed on requirements.txt
 2. Run app.py
 3. Open the link on your browser and enjoy!
