@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block page_content %}
 {% from "_formhelpers.html" import render_field %}
 <form method=post>
   <dl>
@@ -5,3 +8,4 @@
   </dl>
   <p><input type=submit value=Post Comment>
 </form>
+{% endblock %}
