@@ -1,4 +1,3 @@
-""" Setting up the database """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.login import UserMixin, LoginManager
@@ -14,8 +13,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
-login_manager = LoginManager()
-login_manager.init_app(app)
 
 
 class User(db.Model, UserMixin):
@@ -24,11 +21,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
 
-    def encrypt_password(self, password_hash):
-        self.password = generate_password_hash(password_hash)
+    def encrypt_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
     def decrypt_password(self, password_hash):
-        return check_password_hash(self.password, password_hash)
+        return check_password_hash(self.password_hash, password_hash)
 
     def is_active(self):
         return True
@@ -40,9 +37,9 @@ class User(db.Model, UserMixin):
         return self.authenticated
 
     def get_id(self):
-        return (self.id)
+        return (self.username)
 
-    def __init__(self, username, email, password, is_active=True):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
@@ -78,9 +75,7 @@ class Comment(db.Model):
 
     def __init__(self, comment):
         self.comment = comment
-        #self.commented_by = commented_by
+        # self.commented_by = commented_by
 
 if __name__ == '__main__':
     manager.run()
-
-
