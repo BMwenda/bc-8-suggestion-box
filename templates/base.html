@@ -7,52 +7,40 @@
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-  
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-2.2.3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
   </head>
+
   <body>
 
-{% block navbar %}
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Suggestion Box</a>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+          <div class="container-fluid">
+
+            <div class="navbar-header">
+
+              <a class="navbar-brand" href="">Suggestion Box</a>
+
+            </div>
+
+          </div>
+
+    </nav>
+
+        <div class="col-sm-9 col-md-10 main">
+
+          {% block page_content %}
+          {% endblock page_content %}
+
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('register')}}">Signup</a></li>
-            <li><a href="{{ url_for('add_suggestion')}}">Suggestion</a></li>
-            <li><a href=" {{ url_for('comment')}}">Comment</a></li>
-            <li><a href="{{ url_for('logout')}} ">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-</nav>
-{% endblock navbar %}
 
-{% block content %}
-<div class="container-fluid">
-  {% for message in get_flashed_messages() %}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert"> &times; </button>
-      {{ message }}
-    </div>
-    {% endfor %}
-{% endblock content %}
+  </body>
 
+  <footer>
+    <p class="pull-right">Banks ©2016</p>
+  </footer>
 
-  <div class="col-sm-9 col-md-10 main">
-  {% block page_content %}
-  {% endblock page_content %}
-  </div>
-  
-</div>
-</body>
 </html>
-
-

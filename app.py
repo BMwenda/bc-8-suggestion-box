@@ -4,13 +4,16 @@ from forms import RegistrationForm, SuggestionForm, CommentForm, LoginForm
 from flask_login import login_user, login_required, logout_user, current_user, LoginManager
 
 app = Flask(__name__)
-app.secret_key = "hash_key"
+# Create a secret key to prevent a CSRF attack
+app.secret_key = "some_hash_key"
+# Create a login_manager class that lets the app
+# and Flask-Login work together
 login_manager = LoginManager()
+# Configuring the login object for login
 login_manager.init_app(app)
 
-db.create_all()
-
-
+# Creating a user_loader call back.
+# Will reload the user object from the user ID stored in the session
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -21,13 +24,19 @@ def login():
     form = LoginForm(request.form)
     if form.validate():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is not None : #and user.decrypt_password(form.password):
+        if user is not None:  # and user.decrypt_password(form.password):
             login_user(user)
             return redirect(url_for('add_suggestion'))
         else:
             flash("Invalid credentials! Not a user? Sign up first")
-            #return redirect(url_for('register'))
+            # return redirect(url_for('register'))
     return render_template('login.html', form=form)
+
+
+@app.route('/home')
+def home():
+    return render_template('index.html')
+
 
 @app.route('/logout')
 @login_required
@@ -51,7 +60,6 @@ def register():
 
 
 @app.route('/suggest', methods=['GET', 'POST'])
-@login_required
 def add_suggestion():
     form = SuggestionForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -64,40 +72,39 @@ def add_suggestion():
 
 
 @app.route('/comment', methods=['GET', 'POST'])
-@login_required
-def comment():
+def add_comment():
     form = CommentForm(request.form)
     if request.method == 'POST' and form.validate():
         comment = Comment(comment=form.comment.data)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('comment'))
+        return redirect(url_for('add_comment'))
     return render_template('comment.html', form=form)
 
 
-@app.route('/all_suggestions', methods=['GET', 'POST'])
-def view_all_suggestions():
+@app.route('/suggestions', methods=['GET', 'POST'])
+def suggestions():
     # return str(Suggestion.query.all())
     # return redirect(url_for('index.html'))
     return render_template('view_all_suggestions.html')
 
 
 @app.route('/user_suggestions', methods=['GET', 'POST'])
-def view_user_suggestions():
+def user_suggestions():
     # return str(Suggestion.query.all())
     # return redirect(url_for('index.html'))
     return render_template('user_suggestions.html')
 
 
-@app.route('/all_comments', methods=['GET', 'POST'])
-def view_all_comments():
-    comments =  User.query.all()
-    #return redirect(url_for('index.html'))
+@app.route('/comments', methods=['GET', 'POST'])
+def comments():
+    comments = User.query.all()
+    # return redirect(url_for('index.html'))
     return render_template('view_all_comments.html', Comment=comments)
 
 
 @app.route('/user_comments', methods=['GET', 'POST'])
-def view_user_comments():
+def user_comments():
     # return str(Suggestion.query.all())
     # return redirect(url_for('index.html'))
     return render_template('view_user_comments.html')
