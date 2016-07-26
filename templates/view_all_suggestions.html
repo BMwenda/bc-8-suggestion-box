@@ -1,11 +1,31 @@
 {% extends "index.html" %}
-
-{% block page_content %}
 {% from "_formhelpers.html" import render_field %}
 
-<textarea> </textarea>
-
+{% block page_content %}
+<h2> User Suggestions </h2>
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Posted By</th>
+				<th>User id</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in suggestions %}
+			<tr>
+				<td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.user }}</td>
+                <td>{{ item.user_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div>
 {% endblock %}
-
-
-

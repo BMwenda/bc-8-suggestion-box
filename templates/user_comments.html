@@ -3,7 +3,14 @@
 {% block page_content %}
 {% from "_formhelpers.html" import render_field %}
 
-<textarea> </textarea>
+<form method='POST' action='/suggest'>
+	<h2> Post Suggestion </h2>
+	<!-- generate csrf protected form -->
+	{{ form.hidden_tag() }}
+
+<textarea>
+	<h2>Post Comment</h2>
+</textarea>
 
 {% endblock %}
 

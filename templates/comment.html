@@ -2,10 +2,19 @@
 
 {% block page_content %}
 {% from "_formhelpers.html" import render_field %}
-<form method=post>
-  <dl>
-    {{ render_field(form.comment) }}
-  </dl>
-  <p><input type=submit value=Post Comment>
+<form method='POST' action='/comment'>
+	<!-- generate csrf protected form -->
+	{{ form.hidden_tag() }}
+	<h2> Your Comment </h2>
+	<dl>
+		{{ render_field(form.comment) }}
+	</dl>
+  <p><input type='submit' value='Post'></p>
 </form>
+
+<!-- display form errors if any -->
+{% if form.errors %}
+	{{ form.errors }}
+{% endif %}
+
 {% endblock %}

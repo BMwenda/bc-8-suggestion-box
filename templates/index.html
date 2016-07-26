@@ -29,10 +29,10 @@
             <div class="navbar-collapse collapse">
 
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Home</a></li>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#">{{ current_user.username}} Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
               </ul>
 
             </div>
@@ -48,9 +48,9 @@
          <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
            
             <ul class="nav nav-sidebar">
-              <li class="active"><a href="#">Suggestions</a></li>
-              <li><a href="">Comments</a></li>
-              <li><a href="">Users</a></li>
+              <li class="active"><a href="{{ url_for('add_suggestion') }}">Suggestion</a></li>
+              <li><a href="{{ url_for('add_comment') }}">Comment</a></li>
+              <li><a href="{{ url_for('suggestions') }}">All suggestions</a></li>
             </ul>
             <ul class="nav nav-sidebar">
               <li><a href="">User Suggestions</a></li>
@@ -60,6 +60,7 @@
             </ul>
           
         </div>
+        
 
         <div class="col-sm-9 col-md-10 main">
 
