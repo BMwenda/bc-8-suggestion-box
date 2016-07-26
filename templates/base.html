@@ -1,58 +1,118 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Suggestion box</title>
-    <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-  
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-2.2.3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <title>Suggestion box</title>
   </head>
-  <body>
 
-{% block navbar %}
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Suggestion Box</a>
+  <body>
+  {% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation"
+            <div class="navbar-header">
+              <ul>
+                <li><a class="navbar-brand" href="">Suggestion Box</a></li>
+              </ul>
+          </div>
+    </nav>
+    {% endblock %}
+    <!-- carousel to go here -->
+    {% block header%}
+      <header>
+        <div class="text-center page-header">
+          <h1>SUGGESTION BOX</h1>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('register')}}">Signup</a></li>
-            <li><a href="{{ url_for('add_suggestion')}}">Suggestion</a></li>
-            <li><a href=" {{ url_for('comment')}}">Comment</a></li>
-            <li><a href="{{ url_for('logout')}} ">Logout</a></li>
+      </header>
+      {% endblock %}
+
+      <div class="container-fluid alert alert-warning">
+        <!-- Enable flashed messages for display -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="close" data-dismiss="alert">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      {% block page_content %}
+      <main>
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 text-center">
+                <h2 class="section-heading">The Suggestion Box App</h2>
+                      <dl class="section-subheading">
+                        <dt>Features</dt>
+                          <dd><b>Say it!  </b>Post suggestions</dd>
+                          <dd><b>Explore:  </b>View user suggestions</dd>
+                          <dd><b>Join the conversation: </b> Post comments</dd>
+                          <dd><b>Engage: </b>  Up-vote or down-vote user suggestions and comments</dd>
+                          <dd><b>Take control: </b>Flag users that violate our terms</dd>
+                      </dl>
+                </div>
+                <div class="col-lg-4 text-center">
+                <h2 class="section-heading">Sign Up</h2>
+                      <p class="section-subheading text-muted">
+                        Like us? Sign up now
+                      </p>
+                      <a class=" btn btn-default" href="{{ url_for('register') }}">Sign Up</a>
+                      <!--Sign up form to go here-->
+                </div>
+                <div class="col-lg-4 text-center">
+                <h2 class="section-heading">Log In</h2>
+                      <p class="section-subheading text-muted">
+                        Already a user? Log in
+                      </p>
+                      <a class="btn btn-default" href="{{ url_for('login') }}">Login</a>
+                      <!--Log in form to go here-->
+                </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      {% endblock %}
+  </body>
+
+  {% block footer %}
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <span class="copyright">Copyright &copy; Banks 2016</p>
+        </div>
+      </div>
+    </div>
+    <!--Social media buttons-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <ul class="social-buttons list-inline">
+            <li><a href="http://twitter.com/Bonny_Banks"><i class="fa fa-twitter">Twitter</i></a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-center">
+          <ul class="social-buttons list-inline">
+            <li><a href="#"><i class="fa fa-facebook"></i>Facebook</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-center">
+          <ul class="social-buttons list-inline">
+            <li><a href="#"><i class="fa fa-reddit"></i>Reddit</a></li>
           </ul>
         </div>
       </div>
-</nav>
-{% endblock navbar %}
-
-{% block content %}
-<div class="container-fluid">
-  {% for message in get_flashed_messages() %}
-    <div class="alert">
-      <button type="button" class="close" data-dismiss="alert"> &times; </button>
-      {{ message }}
     </div>
-    {% endfor %}
-{% endblock content %}
-
-
-  <div class="col-sm-9 col-md-10 main">
-  {% block page_content %}
-  {% endblock page_content %}
-  </div>
-  
-</div>
-</body>
+  </footer>
+  {% endblock %}
 </html>
-
-

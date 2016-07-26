@@ -1,14 +1,21 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block page_content %}
-{% from "_formhelpers.html" import render_field %}
-<form method='post'>
-  <dl>
-    {{ render_field(form.username) }}
-    {{ render_field(form.email) }}
-    {{ render_field(form.password) }}
-    {{ render_field(form.confirm) }}
-  </dl>
-  <p><input type=submit value=Post suggestion>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 login-form">
+			<form class="form form-horizontal" method="post" action='/register' role="form">
+				{{ form.hidden_tag() }}
+				{{ wtf.form_errors(form, hiddens="only") }}
+				<!--generate a quick form-->
+				{{ wtf.quick_form(form) }}
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}
+<!-- display form errors if any -->
+{% if form.errors %}
+	{{ form.errors }}
+{% endif %}

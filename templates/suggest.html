@@ -1,13 +1,22 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 
 {% block page_content %}
 {% from "_formhelpers.html" import render_field %}
-<form method='post'>
+<form method='POST' action='/suggest'>
+	<h2> Post Suggestion </h2>
+	<!-- generate csrf protected form -->
+	{{ form.hidden_tag() }}
   <dl>
     {{ render_field(form.title) }}
     {{ render_field(form.description) }}
   </dl>
-  <p><input type=submit value=Post suggestion>
+  <p><input type='submit' value='Post'></p>
 </form>
+
+<!-- display form errors if any -->
+{% if form.errors %}
+	{{ form.errors }}
+{% endif %}
+
 {% endblock %}
 
